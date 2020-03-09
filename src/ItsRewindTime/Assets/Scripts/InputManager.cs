@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
     public float reverse;
     public float steer;
     public bool breaking;
+    public bool undo = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +20,18 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         UpdateMovement();
+
+        if (Input.GetKey(KeyCode.Backspace))
+        {
+            this.undo = true;
+        }
+        else
+        {
+            this.undo = false;
+        }
     }
 
-    void UpdateMovement()
+    public Vector3 UpdateMovement()
     {
         throttle = Input.GetAxis("Forward");
         reverse = Input.GetAxis("Reverse");
@@ -37,5 +47,17 @@ public class InputManager : MonoBehaviour
         {
             breaking = false;
         }
+
+        if (new Vector3(throttle, 0, steer) != Vector3.zero)
+        {
+            return new Vector3(throttle, 0, steer);
+        }
+        return Vector3.zero;
+    }
+
+    // Input for rewind
+    void Undo()
+    {
+        
     }
 }
