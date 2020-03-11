@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommandManager : MonoBehaviour
+public class CommandProcessor : MonoBehaviour
 {
     private List<Command> commands = new List<Command>();
     private int currentCommandIndex;

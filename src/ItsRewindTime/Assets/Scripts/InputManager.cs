@@ -17,25 +17,42 @@ public class InputManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        UpdateMovement();
-
-        if (Input.GetKey(KeyCode.Backspace))
+        switch (this.name)
         {
-            this.undo = true;
+            case "Player1":
+                PlayerOneMovement();
+                break;
+            case "Player2":
+                PlayerTwoMovement();
+                break;
+        }
+
+        Undo();
+    }
+
+    void PlayerOneMovement()
+    {
+        throttle = Input.GetAxis("P1_Vertical");
+        steer = Input.GetAxis("P1_Horizontal");
+
+       // throttle = throttle - reverse;
+
+        if (reverse > 0)
+        {
+            breaking = true;
         }
         else
         {
-            this.undo = false;
+            breaking = false;
         }
     }
 
-    public Vector3 UpdateMovement()
+    void PlayerTwoMovement()
     {
-        throttle = Input.GetAxis("Forward");
-        reverse = Input.GetAxis("Reverse");
-        steer = Input.GetAxis("Horizontal");
+        throttle = Input.GetAxis("P2_Vertical");
+        steer = Input.GetAxis("P2_Horizontal");
 
         throttle = throttle - reverse;
 
@@ -47,17 +64,34 @@ public class InputManager : MonoBehaviour
         {
             breaking = false;
         }
-
-        if (new Vector3(throttle, 0, steer) != Vector3.zero)
-        {
-            return new Vector3(throttle, 0, steer);
-        }
-        return Vector3.zero;
     }
 
     // Input for rewind
     void Undo()
     {
-        
+        switch (this.name)
+        {
+            case "Player1":
+                if (Input.GetButton("P1_Rewind"))
+                {
+                    this.undo = true;
+                }
+                else
+                {
+                    this.undo = false;
+                }
+                break;
+            case "Player2":
+
+                if (Input.GetButton("P2_Rewind"))
+                {
+                    this.undo = true;
+                }
+                else
+                {
+                    this.undo = false;
+                }
+                break;
+        }
     }
 }

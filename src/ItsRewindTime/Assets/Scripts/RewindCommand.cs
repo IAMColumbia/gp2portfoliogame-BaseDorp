@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class RewindCommand : Command
 {
-    private Vector3 direction;
+    private Vector3 position;
+    private Quaternion rotation;
+    private CarController car;
 
-    public RewindCommand(IEntity entity, Vector3 _direction) : base(entity)
+    public RewindCommand(IEntity entity, Vector3 _pos, Quaternion _rot, CarController _car) : base(entity)
     {
-        this.direction = _direction;
+        this.position = _pos;
+        this.rotation = _rot;
+        this.car = _car;
     }
 
     public override void Execute()
     {
-        // TODO replace with movement speed
-        this.entity.transform.position += direction * 0.1f;
+        this.car.transform.position = this.position;
+        this.car.transform.rotation = this.rotation;
     }
 
     public override void Undo()
     {
-        // TODO replace with movement speed
-        this.entity.transform.position -= direction * 0.1f;
+        this.car.transform.position = this.position;
+        this.car.transform.rotation = this.rotation;
     }
 }
