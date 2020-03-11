@@ -7,8 +7,12 @@ public class InputManager : MonoBehaviour
     public float throttle;
     public float reverse;
     public float steer;
-    public bool breaking;
     public bool undo = false;
+
+    [SerializeField]
+    InputManager Player1;
+    [SerializeField]
+    InputManager Player2;
 
     void Update()
     {
@@ -31,17 +35,6 @@ public class InputManager : MonoBehaviour
     {
         this.throttle = Input.GetAxis("P1_Vertical");
         this.steer = Input.GetAxis("P1_Horizontal");
-
-       // throttle = throttle - reverse;
-
-        if (reverse > 0)
-        {
-            breaking = true;
-        }
-        else
-        {
-            breaking = false;
-        }
     }
 
     // Player 2 Movement
@@ -49,15 +42,6 @@ public class InputManager : MonoBehaviour
     {
         this.throttle = Input.GetAxis("P2_Vertical");
         this.steer = Input.GetAxis("P2_Horizontal");
-
-        if (reverse > 0)
-        {
-            breaking = true;
-        }
-        else
-        {
-            breaking = false;
-        }
     }
 
     // Input for rewind
@@ -66,9 +50,13 @@ public class InputManager : MonoBehaviour
         switch (this.name)
         {
             case "Player1":
-                if (Input.GetButton("P1_Rewind"))
+                if (Input.GetButton("P1_RewindSelf"))
                 {
                     this.undo = true;
+                }
+                else if (Input.GetButton("P1_RewindOther"))
+                {
+                    Player2.undo = true;
                 }
                 else
                 {
@@ -76,9 +64,14 @@ public class InputManager : MonoBehaviour
                 }
                 break;
             case "Player2":
-                if (Input.GetButton("P2_Rewind"))
+                if (Input.GetButton("P2_RewindSelf"))
                 {
                     this.undo = true;
+                }
+                else if (Input.GetButton("P2_RewindOther"))
+                {
+                    Player1.undo = true;
+                    Debug.Log(Player1.undo);
                 }
                 else
                 {

@@ -17,8 +17,8 @@ public class CarController : MonoBehaviour, IEntity
 
     void Awake()
     {
-        this.inputManager = GetComponent<InputManager>();
-        this.commandManager = GetComponent<CommandManager>();
+        inputManager = GetComponent<InputManager>();
+        commandManager = GetComponent<CommandManager>();
     }
     
     void FixedUpdate()
@@ -42,15 +42,17 @@ public class CarController : MonoBehaviour, IEntity
         // Only creates new command every n amount of seconds
         //if (frame % 1 == 0)
         //{
-            // Makes sure new commands are not being created while rewinding
+        // Makes sure new commands are not being created while rewinding
+        
             if (inputManager.undo)
             {
-                this.commandManager.Undo();
+                Debug.Log("asfsb");
+                commandManager.Undo();
             }
             else
             {
                 RewindCommand moveCommand = new RewindCommand(this, this.transform.position, this.transform.rotation, this);
-                this.commandManager.ExecuteCommand(moveCommand);
+                commandManager.ExecuteCommand(moveCommand);
             }
         //}
     }
