@@ -17,12 +17,14 @@ public class RewindCommand : Command
 
     public override void Execute()
     {
+        // Stores the current position and rotation of the car at the state of the command is created
         this.car.transform.position = this.position;
         this.car.transform.rotation = this.rotation;
     }
 
     public override void Undo()
     {
+        // Sets the pos and rot of the car to what the pos and rot was in the command
         this.car.transform.position = this.position;
         this.car.transform.rotation = this.rotation;
     }

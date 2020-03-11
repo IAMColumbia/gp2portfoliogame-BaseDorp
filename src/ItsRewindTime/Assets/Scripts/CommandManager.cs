@@ -9,26 +9,25 @@ public class CommandManager : MonoBehaviour
 
     public void ExecuteCommand(Command _command)
     {
-        commands.Add(_command);
+        // Adds the current command to the list of commands
+        this.commands.Add(_command);
+        // Runs the command
         _command.Execute();
-        currentCommandIndex = commands.Count - 1;
+        this.currentCommandIndex = this.commands.Count - 1;
     }
 
     public void Undo()
     {
+        // Does nothing if there is no commands
         if (currentCommandIndex < 0)
         {
             return;
         }
 
-        commands[currentCommandIndex].Undo();
-        commands.RemoveAt(currentCommandIndex);
-        currentCommandIndex--;
-    }
-
-    public void Redo()
-    {
-        commands[currentCommandIndex].Execute();
-        currentCommandIndex++;
+        // Undo's the current command
+        this.commands[currentCommandIndex].Undo();
+        // Removes it from the list
+        this.commands.RemoveAt(currentCommandIndex);
+        this.currentCommandIndex--;
     }
 }

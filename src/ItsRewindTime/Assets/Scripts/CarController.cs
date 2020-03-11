@@ -13,13 +13,14 @@ public class CarController : MonoBehaviour, IEntity
     float strengthCoefficient = 20000f;
     float maxTurn = 20f;
 
+    int frame = 0;
+
     void Awake()
     {
         this.inputManager = GetComponent<InputManager>();
         this.commandManager = GetComponent<CommandManager>();
     }
-
-    // Update is called once per frame
+    
     void FixedUpdate()
     {
         // Physics for the wheels
@@ -37,12 +38,20 @@ public class CarController : MonoBehaviour, IEntity
 
     void Update()
     {
-        RewindCommand moveCommand = new RewindCommand(this, this.transform.position, this.transform.rotation, this);
-        this.commandManager.ExecuteCommand(moveCommand);
-
-        if (inputManager.undo)
-        {
-            this.commandManager.Undo();
-        }
+        //frame++;
+        // Only creates new command every n amount of seconds
+        //if (frame % 1 == 0)
+        //{
+            // Makes sure new commands are not being created while rewinding
+            if (inputManager.undo)
+            {
+                this.commandManager.Undo();
+            }
+            else
+            {
+                RewindCommand moveCommand = new RewindCommand(this, this.transform.position, this.transform.rotation, this);
+                this.commandManager.ExecuteCommand(moveCommand);
+            }
+        //}
     }
 }

@@ -10,32 +10,27 @@ public class InputManager : MonoBehaviour
     public bool breaking;
     public bool undo = false;
 
-    // Start is called before the first frame update
-    void Start()
+    void Update()
     {
-
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
+        // Checks wether this is player 1 or 2
         switch (this.name)
         {
             case "Player1":
-                PlayerOneMovement();
+                this.PlayerOneMovement();
                 break;
             case "Player2":
-                PlayerTwoMovement();
+                this.PlayerTwoMovement();
                 break;
         }
 
-        Undo();
+        this.CheckUndo();
     }
 
+    // Player 1 Movement
     void PlayerOneMovement()
     {
-        throttle = Input.GetAxis("P1_Vertical");
-        steer = Input.GetAxis("P1_Horizontal");
+        this.throttle = Input.GetAxis("P1_Vertical");
+        this.steer = Input.GetAxis("P1_Horizontal");
 
        // throttle = throttle - reverse;
 
@@ -49,12 +44,11 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    // Player 2 Movement
     void PlayerTwoMovement()
     {
-        throttle = Input.GetAxis("P2_Vertical");
-        steer = Input.GetAxis("P2_Horizontal");
-
-        throttle = throttle - reverse;
+        this.throttle = Input.GetAxis("P2_Vertical");
+        this.steer = Input.GetAxis("P2_Horizontal");
 
         if (reverse > 0)
         {
@@ -67,7 +61,7 @@ public class InputManager : MonoBehaviour
     }
 
     // Input for rewind
-    void Undo()
+    void CheckUndo()
     {
         switch (this.name)
         {
@@ -82,7 +76,6 @@ public class InputManager : MonoBehaviour
                 }
                 break;
             case "Player2":
-
                 if (Input.GetButton("P2_Rewind"))
                 {
                     this.undo = true;
