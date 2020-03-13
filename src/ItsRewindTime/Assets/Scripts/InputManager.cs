@@ -47,37 +47,22 @@ public class InputManager : MonoBehaviour
     // Input for rewind
     void CheckUndo()
     {
-        switch (this.name)
+        if (Input.GetButton("P1_RewindSelf") || Input.GetButton("P2_RewindOther"))
         {
-            case "Player1":
-                if (Input.GetButton("P1_RewindSelf"))
-                {
-                    this.undo = true;
-                }
-                else if (Input.GetButton("P1_RewindOther"))
-                {
-                    Player2.undo = true;
-                }
-                else
-                {
-                    this.undo = false;
-                }
-                break;
-            case "Player2":
-                if (Input.GetButton("P2_RewindSelf"))
-                {
-                    this.undo = true;
-                }
-                else if (Input.GetButton("P2_RewindOther"))
-                {
-                    Player1.undo = true;
-                    Debug.Log(Player1.undo);
-                }
-                else
-                {
-                    this.undo = false;
-                }
-                break;
+            Player1.undo = true;
+        }
+        else
+        {
+            Player1.undo = false;
+        }
+
+        if (Input.GetButton("P2_RewindSelf") || Input.GetButton("P1_RewindOther"))
+        {
+            Player2.undo = true;
+        }
+        else
+        {
+            Player2.undo = false;
         }
     }
 }

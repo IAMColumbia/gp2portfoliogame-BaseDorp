@@ -38,6 +38,7 @@ public class CarController : MonoBehaviour, IEntity
 
     void Update()
     {
+        // TODO change so command isn't being created every frame
         //frame++;
         // Only creates new command every n amount of seconds
         //if (frame % 1 == 0)
@@ -46,7 +47,6 @@ public class CarController : MonoBehaviour, IEntity
         
             if (inputManager.undo)
             {
-                Debug.Log("asfsb");
                 commandManager.Undo();
             }
             else
