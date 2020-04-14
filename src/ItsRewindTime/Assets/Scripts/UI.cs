@@ -1,0 +1,35 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class UI : MonoBehaviour
+{
+    [SerializeField]
+    CarController Player1;
+    [SerializeField]
+    CarController Player2;
+    [SerializeField]
+    Text P1Meter;
+    [SerializeField]
+    Text P2Meter;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateMeter();   
+    }
+
+    void UpdateMeter()
+    {
+        this.P1Meter.text = "Rewind: " + Player1.rewindMeter.ToString();
+        
+        this.P2Meter.text = "Rewind: " + Player2.rewindMeter.ToString();
+    }
+}

@@ -236,8 +236,10 @@ MonoBehaviour:
   throttle: 0
   reverse: 0
   steer: 0
-  breaking: 0
+  brake: 0
   undo: 0
+  Player1: {fileID: 0}
+  Player2: {fileID: 0}
 --- !u!114 &6270844986344004160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 6270844986344004171}
-  commandManager: {fileID: 0}
+  commandManager: {fileID: 6270844986344004168}
   throttleWheels:
   - {fileID: 790284899105211432}
   - {fileID: 790284898955140571}
@@ -260,6 +262,8 @@ MonoBehaviour:
   steeringWheels:
   - {fileID: 790284899105211432}
   - {fileID: 790284898229684214}
+  breakStrength: 200
+  rewindMeter: 0
 --- !u!114 &6270844986344004168
 MonoBehaviour:
   m_ObjectHideFlags: 0
