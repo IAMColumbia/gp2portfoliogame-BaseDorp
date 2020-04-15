@@ -74,11 +74,21 @@ public class CarController : MonoBehaviour, IEntity
         //}
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if (collision.collider.tag == "pickup")
+        if (collision.gameObject.tag == "pickup")
         {
             //rewindMeter += rewindPickup;
+            collision.gameObject.SetActive(false);
         }
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.collider.tag == "pickup")
+    //    {
+    //        //rewindMeter += rewindPickup;
+    //        collision.gameObject.SetActive(false);
+    //    }
+    //}
 }

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class RewindPickup : MonoBehaviour
 {
+    [SerializeField]
+    public float rewindAmount;
+    [SerializeField]
+    float respawnTime = 5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,11 +21,13 @@ public class RewindPickup : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnDisable()
     {
-        if (col.collider.tag == "")
-        {
+        Invoke("Respawn", respawnTime);
+    }
 
-        }
+    void Respawn()
+    {
+        this.gameObject.SetActive(true);
     }
 }

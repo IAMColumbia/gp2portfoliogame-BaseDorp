@@ -6,9 +6,16 @@ public class CommandManager : MonoBehaviour
 {
     private List<Command> commands = new List<Command>();
     private int currentCommandIndex;
+    private int maxCommands = 500;
 
     public void ExecuteCommand(Command _command)
     {
+        // removes the oldest command if command pattern has more than maxCommand amount
+        if (currentCommandIndex >= maxCommands)
+        {
+            this.commands.RemoveAt(0);
+        }
+
         // Adds the current command to the list of commands
         this.commands.Add(_command);
         // Runs the command
