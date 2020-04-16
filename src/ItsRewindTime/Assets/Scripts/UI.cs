@@ -32,4 +32,9 @@ public class UI : MonoBehaviour
         
         this.P2Meter.text = "Rewind: " + Player2.rewindMeter.ToString();
     }
+
+    void UpdateLap()
+    {
+        
+    }
 }

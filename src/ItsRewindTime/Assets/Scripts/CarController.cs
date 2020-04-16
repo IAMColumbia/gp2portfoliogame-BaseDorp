@@ -18,6 +18,9 @@ public class CarController : MonoBehaviour, IEntity
     int frame = 0;
     [SerializeField]
     public float rewindMeter = 100;
+    int lap = 0;
+    // TODO change this to import from a gamemode class
+    int totalLaps = 1;
 
     void Awake()
     {
@@ -72,6 +75,10 @@ public class CarController : MonoBehaviour, IEntity
                 this.rewindMeter++;
             }
         //}
+
+
+        // Checks to see if the game is over
+        Win();
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -81,14 +88,18 @@ public class CarController : MonoBehaviour, IEntity
             //rewindMeter += rewindPickup;
             collision.gameObject.SetActive(false);
         }
+        else if (collision.gameObject.tag == "finishLine")
+        {
+            this.lap++;
+        }
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.collider.tag == "pickup")
-    //    {
-    //        //rewindMeter += rewindPickup;
-    //        collision.gameObject.SetActive(false);
-    //    }
-    //}
+    // TODO move to a gamemode class
+    void Win()
+    {
+        if (this.lap >= totalLaps)
+        {
+
+        }
+    }
 }
