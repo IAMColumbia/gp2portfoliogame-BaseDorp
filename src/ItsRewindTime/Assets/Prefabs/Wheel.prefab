@@ -96,9 +96,9 @@ WheelCollider:
   m_Mass: 1
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 1
+    m_ExtremumSlip: 6
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 1
+    m_AsymptoteSlip: 6
     m_AsymptoteValue: 1
     m_Stiffness: 5
   m_SidewaysFriction:

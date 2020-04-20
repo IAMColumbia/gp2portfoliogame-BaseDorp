@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     public float throttle;
     public float reverse;
     public float steer;
+    public bool brake;
     public bool undo = false;
 
     [SerializeField]
@@ -28,6 +29,8 @@ public class InputManager : MonoBehaviour
         }
 
         this.CheckUndo();
+
+        brake = Input.GetKeyDown(KeyCode.S);
     }
 
     // Player 1 Movement
