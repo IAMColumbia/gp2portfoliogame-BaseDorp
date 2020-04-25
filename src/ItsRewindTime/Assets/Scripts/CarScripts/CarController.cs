@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CommandManager))]
 public class CarController : MonoBehaviour, IEntity
 {
+    // Movement Variables
     public InputManager inputManager;
     public CommandManager commandManager;
     public List<WheelCollider> throttleWheels;
@@ -15,12 +16,15 @@ public class CarController : MonoBehaviour, IEntity
     public float breakStrength;
     float maxTurn = 20f;
 
+    // Rewind Variables
     int frame = 0;
     [SerializeField]
     public float rewindMeter = 100;
-    int lap = 0;
-    // TODO change this to import from a gamemode class
-    int totalLaps = 1;
+    RewindPickup rp;
+
+    // Game Variables
+    int checkpoints = 1;
+    public int laps = 0;
 
     void Awake()
     {
@@ -75,31 +79,27 @@ public class CarController : MonoBehaviour, IEntity
                 this.rewindMeter++;
             }
         //}
-
-
-        // Checks to see if the game is over
-        Win();
     }
 
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "pickup")
         {
-            //rewindMeter += rewindPickup;
+            rewindMeter += rp.rewindAmount;
             collision.gameObject.SetActive(false);
         }
-        else if (collision.gameObject.tag == "finishLine")
+        else if (collision.gameObject.tag == "checkpoint")
         {
-            this.lap++;
+            this.checkpoints++;
         }
-    }
-
-    // TODO move to a gamemode class
-    void Win()
-    {
-        if (this.lap >= totalLaps)
+        else if (collision.gameObject.tag == "finshline")
         {
-
+            // Resets if all checkpoints is hit. Counts as one lap
+            if (checkpoints >= 8)
+            {
+                this.checkpoints = 0;
+                this.laps++;
+            }
         }
     }
 }
