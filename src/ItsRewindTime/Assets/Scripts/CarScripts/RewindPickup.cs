@@ -5,7 +5,7 @@ using UnityEngine;
 public class RewindPickup : MonoBehaviour
 {
     [SerializeField]
-    public float rewindAmount;
+    public float rewindAmount = 50;
     [SerializeField]
     float respawnTime = 5f;
 

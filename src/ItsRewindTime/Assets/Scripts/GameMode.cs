@@ -8,23 +8,36 @@ public class GameMode : MonoBehaviour
 
     public int totalLaps = 3;
 
-    private int numPlayers = 2;
-    private List<CarController> players;
+    //private int numPlayers = 2;
+    //private List<CarController> players;
+
+    [SerializeField]
+    CarController Player1;
+    [SerializeField]
+    CarController Player2;
 
     private void Start()
     { 
         // Gets all all objects with the CarController script (which should be only the players)
-        Object[] cc = FindObjectsOfType(typeof(CarController));
-        foreach (CarController n in cc)
-        {
-            players.Add(n);
-        }
+        //Object[] cc = FindObjectsOfType(typeof(CarController));
+        //foreach (CarController n in cc)
+        //{
+        //    players.Add(n);
+        //}
     }
 
     public void AddPlayer()
     {
         // Future goals to be able to add up to 8 players
-        numPlayers++;
+        //numPlayers++;
+    }
+
+    void WinCondition()
+    {
+        if (Player1.laps >= totalLaps)
+        {
+
+        }
     }
 
     #region Singleton

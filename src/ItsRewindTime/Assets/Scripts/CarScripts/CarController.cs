@@ -11,7 +11,8 @@ public class CarController : MonoBehaviour, IEntity
     public InputManager inputManager;
     public CommandManager commandManager;
     public List<WheelCollider> throttleWheels;
-    public List<WheelCollider> steeringWheels;
+    public List<GameObject> steeringWheels;
+    public List<GameObject> meshWheels;
     float strengthCoefficient = 20000f;
     public float breakStrength;
     float maxTurn = 20f;
@@ -23,8 +24,8 @@ public class CarController : MonoBehaviour, IEntity
     RewindPickup rp;
 
     // Game Variables
-    int checkpoints = 1;
-    public int laps = 0;
+    public int checkpoints = 0;
+    public int laps = 1;
 
     void Awake()
     {
@@ -51,9 +52,10 @@ public class CarController : MonoBehaviour, IEntity
         }
 
         // Steering
-        foreach (WheelCollider wheel in steeringWheels)
+        foreach (GameObject wheel in steeringWheels)
         {
-            wheel.steerAngle = maxTurn * inputManager.steer;
+            wheel.GetComponent<WheelCollider>().steerAngle = maxTurn * inputManager.steer;
+            //wheel.transform.localEulerAngles = new Vector3(0f, inputManager.steer * maxTurn , 0f);
         }
     }
 
@@ -94,9 +96,11 @@ public class CarController : MonoBehaviour, IEntity
         }
         else if (collision.gameObject.tag == "finshline")
         {
+            Debug.Log("teasbuj");
             // Resets if all checkpoints is hit. Counts as one lap
             if (checkpoints >= 8)
             {
+                
                 this.checkpoints = 0;
                 this.laps++;
             }
