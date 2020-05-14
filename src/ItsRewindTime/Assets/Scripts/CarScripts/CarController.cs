@@ -19,18 +19,18 @@ public class CarController : MonoBehaviour, IEntity
 
     // Rewind Variables
     int frame = 0;
-    [SerializeField]
-    public float rewindMeter = 100;
+    public float rewindMeter = 0;
     RewindPickup rp;
 
     // Game Variables
     public int checkpoints = 0;
-    public int laps = 1;
+    public int laps = 0;
 
     void Awake()
     {
         inputManager = GetComponent<InputManager>();
         commandManager = GetComponent<CommandManager>();
+        rp = GetComponent<RewindPickup>();
     }
     
     void FixedUpdate()
@@ -87,20 +87,18 @@ public class CarController : MonoBehaviour, IEntity
     {
         if (collision.gameObject.tag == "pickup")
         {
-            rewindMeter += rp.rewindAmount;
+            //rewindMeter += rp.rewindAmount;
             collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "checkpoint")
         {
             this.checkpoints++;
         }
-        else if (collision.gameObject.tag == "finshline")
+        else if (collision.gameObject.tag == "finishline")
         {
-            Debug.Log("teasbuj");
             // Resets if all checkpoints is hit. Counts as one lap
             if (checkpoints >= 8)
-            {
-                
+            {   
                 this.checkpoints = 0;
                 this.laps++;
             }
