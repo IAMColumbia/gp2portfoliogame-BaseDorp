@@ -5,8 +5,12 @@ using UnityEngine;
 public class GameMode : MonoBehaviour
 {
     private static GameMode instance;
-
+    
+    [SerializeField]
     public int totalLaps = 3;
+
+    public bool P1Win = false;
+    public bool P2Win = false;
 
     //private int numPlayers = 2;
     //private List<CarController> players;
@@ -36,7 +40,13 @@ public class GameMode : MonoBehaviour
     {
         if (Player1.laps >= totalLaps)
         {
-
+            Player1.gameObject.GetComponent<CarController>().enabled = false;
+            P1Win = true;
+        }
+        else if (Player2.laps >= totalLaps)
+        {
+            Player2.gameObject.GetComponent<CarController>().enabled = false;
+            P1Win = true;
         }
     }
 

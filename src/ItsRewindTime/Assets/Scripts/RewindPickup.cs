@@ -12,7 +12,7 @@ public class RewindPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rewindAmount = 50f;
     }
 
     // Update is called once per frame

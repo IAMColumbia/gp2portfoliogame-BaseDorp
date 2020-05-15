@@ -6,6 +6,9 @@ using UnityEngine;
 /// Script referenced from https://gamedev.stackexchange.com/questions/118388/how-to-do-an-anti-sway-bar-for-a-car-in-unity-5
 /// </summary>
 
+// TODO script is outdated and doesn't work so it is not implmented. Need to fix script or tinker with Wheel Collider settings until the car stops flipping as easily
+// TODO or just change the script to detect if the car is stuck on its roof or sides (similar to what rocket league has)
+
 public class AntiRollBar : MonoBehaviour
 {
     //[SerializeField]

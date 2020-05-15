@@ -26,6 +26,11 @@ public class CarController : MonoBehaviour, IEntity
     public int checkpoints = 0;
     public int laps = 0;
 
+    private void Start()
+    {
+        InvokeRepeating("PassiveRewindMeter", 0, 1.0f);
+    }
+
     void Awake()
     {
         inputManager = GetComponent<InputManager>();
@@ -72,22 +77,30 @@ public class CarController : MonoBehaviour, IEntity
             if (inputManager.undo && rewindMeter > 0)
             {
                 commandManager.Undo();
-                this.rewindMeter--;
+                // TODO fix bug where it is not removing meter if rewinding other player // Probably a better way than just creating another bool
+                if (!inputManager.undoByOther)
+                {
+                    this.rewindMeter--;
+                }
             }
             else
             {
                 RewindCommand moveCommand = new RewindCommand(this, this.transform.position, this.transform.rotation, this);
                 commandManager.ExecuteCommand(moveCommand);
-                this.rewindMeter++;
             }
         //}
+    }
+
+    void PassiveRewindMeter()
+    {
+        rewindMeter+=5f;
     }
 
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "pickup")
         {
-            //rewindMeter += rp.rewindAmount;
+            rewindMeter += collision.gameObject.GetComponent<RewindPickup>().rewindAmount;
             collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "checkpoint")
