@@ -19,18 +19,23 @@ public class CarController : MonoBehaviour, IEntity
 
     // Rewind Variables
     int frame = 0;
-    [SerializeField]
-    public float rewindMeter = 100;
+    public float rewindMeter = 0;
     RewindPickup rp;
 
     // Game Variables
     public int checkpoints = 0;
-    public int laps = 1;
+    public int laps = 0;
+
+    private void Start()
+    {
+        InvokeRepeating("PassiveRewindMeter", 0, 1.0f);
+    }
 
     void Awake()
     {
         inputManager = GetComponent<InputManager>();
         commandManager = GetComponent<CommandManager>();
+        rp = GetComponent<RewindPickup>();
     }
     
     void FixedUpdate()
@@ -72,35 +77,41 @@ public class CarController : MonoBehaviour, IEntity
             if (inputManager.undo && rewindMeter > 0)
             {
                 commandManager.Undo();
-                this.rewindMeter--;
+                // TODO fix bug where it is not removing meter if rewinding other player // Probably a better way than just creating another bool
+                if (!inputManager.undoByOther)
+                {
+                    this.rewindMeter--;
+                }
             }
             else
             {
                 RewindCommand moveCommand = new RewindCommand(this, this.transform.position, this.transform.rotation, this);
                 commandManager.ExecuteCommand(moveCommand);
-                this.rewindMeter++;
             }
         //}
+    }
+
+    void PassiveRewindMeter()
+    {
+        rewindMeter+=5f;
     }
 
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "pickup")
         {
-            rewindMeter += rp.rewindAmount;
+            rewindMeter += collision.gameObject.GetComponent<RewindPickup>().rewindAmount;
             collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "checkpoint")
         {
             this.checkpoints++;
         }
-        else if (collision.gameObject.tag == "finshline")
+        else if (collision.gameObject.tag == "finishline")
         {
-            Debug.Log("teasbuj");
             // Resets if all checkpoints is hit. Counts as one lap
             if (checkpoints >= 8)
-            {
-                
+            {   
                 this.checkpoints = 0;
                 this.laps++;
             }

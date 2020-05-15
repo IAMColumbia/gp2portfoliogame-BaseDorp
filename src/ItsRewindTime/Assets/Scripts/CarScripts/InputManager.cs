@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     public float steer;
     public bool brake;
     public bool undo = false;
+    public bool undoByOther = false;
 
     [SerializeField]
     InputManager Player1;
@@ -30,7 +31,7 @@ public class InputManager : MonoBehaviour
 
         this.CheckUndo();
 
-        brake = Input.GetKeyDown(KeyCode.S);
+        
     }
 
     // Player 1 Movement
@@ -38,6 +39,7 @@ public class InputManager : MonoBehaviour
     {
         this.throttle = Input.GetAxis("P1_Vertical");
         this.steer = Input.GetAxis("P1_Horizontal");
+        this.brake = Input.GetKeyDown(KeyCode.S);
     }
 
     // Player 2 Movement
@@ -45,26 +47,42 @@ public class InputManager : MonoBehaviour
     {
         this.throttle = Input.GetAxis("P2_Vertical");
         this.steer = Input.GetAxis("P2_Horizontal");
+        this.brake = Input.GetKeyDown(KeyCode.DownArrow);
     }
 
     // Input for rewind
     void CheckUndo()
     {
-        if (Input.GetButton("P1_RewindSelf") || Input.GetButton("P2_RewindOther"))
+        // TODO find better way to check for who is rewinding who
+        if (Input.GetButton("P1_RewindSelf"))
         {
             Player1.undo = true;
+            Player1.undoByOther = false;
+        }
+        else if (Input.GetButton("P2_RewindOther"))
+        {
+            Player1.undo = true;
+            Player1.undoByOther = true;
         }
         else
         {
             Player1.undo = false;
+            Player1.undoByOther = false;
         }
 
-        if (Input.GetButton("P2_RewindSelf") || Input.GetButton("P1_RewindOther"))
+        if (Input.GetButton("P2_RewindSelf"))
         {
             Player2.undo = true;
+            Player2.undoByOther = false;
+        }
+        else if (Input.GetButton("P1_RewindOther"))
+        {
+            Player2.undo = true;
+            Player2.undoByOther = true;
         }
         else
         {
+            Player2.undoByOther = false;
             Player2.undo = false;
         }
     }
