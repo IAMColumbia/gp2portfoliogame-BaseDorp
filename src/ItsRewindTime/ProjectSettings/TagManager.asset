@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Player1
   - pickup
-  - finishLine
+  - GameMode
+  - checkpoint
+  - finishline
   layers:
   - Default
   - TransparentFX

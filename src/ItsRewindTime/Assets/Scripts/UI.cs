@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
     [SerializeField]
+    GameMode gm;
+    [SerializeField]
     CarController Player1;
     [SerializeField]
     CarController Player2;
@@ -13,6 +15,10 @@ public class UI : MonoBehaviour
     Text P1Meter;
     [SerializeField]
     Text P2Meter;
+    [SerializeField]
+    Text P1Lap;
+    [SerializeField]
+    Text P2Lap;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +29,8 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateMeter();   
+        UpdateMeter();
+        UpdateLap();
     }
 
     void UpdateMeter()
@@ -35,6 +42,6 @@ public class UI : MonoBehaviour
 
     void UpdateLap()
     {
-        
+        this.P1Lap.text = "Lap " + Player1.laps.ToString() + "/" + gm.totalLaps.ToString();
     }
 }
